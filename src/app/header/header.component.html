@@ -1,0 +1,15 @@
+<mat-toolbar style="height: 4rem;" color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Toggle menu" (click)="onToggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>CandidateInfo</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon" aria-label="User profile" [matMenuTriggerFor]="menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="viewProfile()">View Profile</button>
+  <!-- <button mat-menu-item (click)="signOut()">Sign Out</button> -->
+</mat-menu>

@@ -1,0 +1,361 @@
+<h2>Candidate Registration</h2>
+
+<!-- <mat-card class="example-card">
+  <mat-card-content> -->
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 style="color: #797979; margin-bottom: 10px;">Personal Information</h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter your personal details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- <h3 class="heading">
+          Personal Information
+        </h3> -->
+        <mat-grid-list cols="6" rowHeight="125px" class="gridclass">
+          <mat-grid-tile>
+            <mat-form-field class="inputField" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input [(ngModel)]="candidateForm.personalInfoDto.firstName" matInput type="text" name="firstName" #firstName="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="15" />
+              <mat-error
+                *ngIf=" firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors?.['required']"
+              >
+                This field is required.
+              </mat-error>
+              <mat-error *ngIf="firstName.invalid && firstName.errors?.['pattern']">
+                Don't start and end with whitespaces in FirstName.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="inputField" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input [(ngModel)]="candidateForm.personalInfoDto.lastName" matInput type="text" name="lastName" #lastName="ngModel" autocomplete="off" [pattern]="noWhitespacePattern" maxlength="15" />
+              <mat-error *ngIf="lastName.invalid && lastName.errors?.['pattern']">
+                Don't start and end with whitespaces in LastName.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="inputField" appearance="outline">
+              <mat-label>Email Address</mat-label>
+              <input [(ngModel)]="candidateForm.personalInfoDto.emailAddress" matInput type="email" name="email" #emailAddress="ngModel" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$" autocomplete="off" />
+              <mat-error *ngIf="emailAddress.invalid && emailAddress.errors?.['required']">
+                This field is required
+              </mat-error>
+              <mat-error *ngIf="emailAddress.invalid && emailAddress.errors?.['pattern']">
+                Please enter a valid Email Address.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="inputField" appearance="outline">
+              <mat-label>Mobile Number</mat-label>
+              <input [(ngModel)]="candidateForm.personalInfoDto.mobileNumber" matInput type="tel" name="mobileNumber" #mobileNumber="ngModel" required pattern="[0-9]{10}" maxlength="10" autocomplete="off" />
+              <mat-error
+                *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched) && mobileNumber.errors?.['required']"
+              >
+                This field is required
+              </mat-error>
+              <mat-error
+                *ngIf="mobileNumber.invalid &&  mobileNumber.errors?.['pattern']"
+              >
+                Pleaase enter a valid Mobile Number.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="inputField" appearance="outline">
+              <mat-label>Gender</mat-label>
+              <mat-select [(ngModel)]="candidateForm.personalInfoDto.genderId" id="genderId" name="genderId" #genderId="ngModel" required autocomplete="off" >
+                <mat-option>Clear</mat-option>
+                <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                  {{ gender.genderName }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="genderId.invalid && (genderId.dirty || genderId.touched) && genderId.errors?.['required']">Please select a Gender</mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-action-row style="padding-right: 30px;">
+          <button mat-raised-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>  
+      </mat-expansion-panel>
+
+      <mat-divider></mat-divider>
+
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 class="heading">
+              Address Information
+            </h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter your address details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- <h3 class="heading">
+          Add Address Information
+          <button mat-mini-fab color="primary" (click)="addAddress()" style="align-self: flex-end; margin-right: 25px;" [disabled]="addressFieldsAdded || candidateForm.addressInfoDto.length === 2">
+            <mat-icon>add</mat-icon>
+          </button>
+        </h3> -->
+        <ng-container *ngFor="let address of candidateForm.addressInfoDto; let i = index">
+          <h4 class="heading">
+            {{ i === 0 ? 'Permanent Address' : 'Corresponding Address' }}
+          </h4>
+          <mat-grid-list cols="6" rowHeight="100px" class="gridclass">
+            <mat-grid-tile>
+              <mat-form-field class="inputField" appearance="outline">
+                <mat-label>Locality</mat-label>
+                <input [(ngModel)]="candidateForm.addressInfoDto[i].locality" matInput type="text" name="locality" #locality="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern"  maxlength="30" />
+                <mat-error
+                  *ngIf="locality.invalid && (locality.dirty || locality.touched) && locality.errors?.['required']"
+                >
+                  This field is required
+                </mat-error>
+                <mat-error *ngIf="locality.invalid && locality.errors?.['pattern']">
+                  Don't start and end with whitespaces in Locality.
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-form-field class="inputField" appearance="outline">
+                <mat-label>City</mat-label>
+                <input [(ngModel)]="candidateForm.addressInfoDto[i].city" matInput type="text" name="city" #city="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="25" />
+                <mat-error
+                  *ngIf="city.invalid && (city.dirty || city.touched) && city.errors?.['required']"
+                >
+                  This field is required
+                </mat-error>
+                <mat-error *ngIf="city.invalid && city.errors?.['pattern']">
+                  Don't start and end with whitespaces in City.
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-form-field class="inputField" appearance="outline">
+                <mat-label>State</mat-label>
+                <input [(ngModel)]="candidateForm.addressInfoDto[i].state" matInput type="text" name="state" #state="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="25" />
+                <mat-error
+                  *ngIf="state.invalid && (state.dirty || state.touched) && state.errors?.['required']"
+                >
+                  This field is required
+                </mat-error>
+                <mat-error *ngIf="state.invalid && state.errors?.['pattern']">
+                  Don't start and end with whitespaces in State.
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-form-field class="inputField" appearance="outline">
+                <mat-label>PinCode</mat-label>
+                <input [(ngModel)]="candidateForm.addressInfoDto[i].zipCode" matInput type="text" name="zipCode" #zipCode="ngModel" pattern="[0-9]{6}" required maxlength="6" autocomplete="off" />
+                <mat-error
+                  *ngIf="zipCode.invalid && (zipCode.dirty || zipCode.touched) && zipCode.errors?.['required']"
+                >
+                  This field is required
+                </mat-error>
+                <mat-error
+                  *ngIf="zipCode.invalid && zipCode.errors?.['pattern']"
+                >
+                  Please enter a valid Pincode.
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-form-field class="inputField" appearance="outline">
+                <mat-label>Country</mat-label>
+                <input [(ngModel)]="candidateForm.addressInfoDto[i].country" matInput type="text" name="country" #country="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="15" />
+                <mat-error
+                  *ngIf="country.invalid && (country.dirty || country.touched) && country.errors?.['required']"
+                >
+                  This field is required
+                </mat-error>
+                <mat-error *ngIf="country.invalid && country.errors?.['pattern']">
+                  Don't start and end with whitespaces in Country.
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile *ngIf="i === 1">
+              <mat-checkbox [(ngModel)]="copyAddress" (change)="copyAddressToSecond()" [disabled]="addressesAreEqual()">Same as Permanent address</mat-checkbox>
+            </mat-grid-tile>
+            <!-- <mat-grid-tile *ngIf="candidateForm.addressInfoDto[i].locality != '' && i > 0">
+              <button mat-mini-fab color="warn" (click)="removeAddress(i)" style="margin: auto;">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-grid-tile> -->
+          </mat-grid-list>
+        </ng-container>
+        <mat-action-row style="padding-right: 30px;">
+          <button mat-raised-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-raised-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>  
+      </mat-expansion-panel>
+
+      <mat-divider></mat-divider>
+
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 style="color: #797979; margin-bottom: 10px;">Educational Information</h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter your educational details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      <h3 class="heading">
+        Add Educational Information
+        <button mat-mini-fab color="primary" (click)="addEducation()" style="align-self: flex-end; margin-right: 25px;">
+          <mat-icon>add</mat-icon>
+        </button>
+      </h3>
+      <mat-grid-list cols="6" rowHeight="100px" class="gridclass"
+        *ngFor="let education of candidateForm.educationalInfoDto; let i = index">
+        <mat-grid-tile>
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>Institute Name</mat-label>
+            <input [(ngModel)]="candidateForm.educationalInfoDto[i].instituteName" matInput type="text" name="instituteName" #instituteName="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="25" />
+            <mat-error
+                *ngIf="instituteName.invalid && (instituteName.dirty || instituteName.touched) && instituteName.errors?.['required']"
+              >
+                This field is required
+              </mat-error>
+              <mat-error *ngIf="instituteName.invalid && instituteName.errors?.['pattern']">
+                Don't start and end with whitespaces in Institute Name.
+              </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>Degree</mat-label>
+            <input [(ngModel)]="candidateForm.educationalInfoDto[i].degree" matInput type="text" name="degree" #degree="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="25" />
+            <mat-error
+                *ngIf="degree.invalid && (degree.dirty || degree.touched) && degree.errors?.['required']"
+              >
+                This field is required
+              </mat-error>
+              <mat-error *ngIf="degree.invalid && degree.errors?.['pattern']">
+                Don't start and end with whitespaces in Degree.
+              </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <!-- <mat-form-field class="inputField" appearance="outline">
+          <mat-label>Start Year</mat-label>
+          <input
+            matInput
+            type="number"
+            name="startYear"
+            required
+          />
+          <mat-error
+            *ngIf="taskTitle.invalid && (taskTitle.dirty || taskTitle.touched) && taskTitle.errors?.['required']"
+          >
+            This field is required
+          </mat-error>
+        </mat-form-field> -->
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>Start date</mat-label>
+            <input [(ngModel)]="candidateForm.educationalInfoDto[i].startDate" type="date" #startDate="ngModel" matInput [matDatepicker]="picker1" (dateChange)="updateStartDate($event, i)" autocomplete="off" [value]="formattedDate(candidateForm.educationalInfoDto[i].startDate)" [max]="maxDate" required >
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            <mat-error *ngIf="startDate.invalid && startDate.errors?.['required']">Start Date is Required</mat-error>
+            <mat-error *ngIf="isDateExceedMaxDate(candidateForm.educationalInfoDto[i].startDate)">Don't exceed today's date.</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        
+        <mat-grid-tile>
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>End date</mat-label>
+            <input [(ngModel)]="candidateForm.educationalInfoDto[i].endDate" type="date" #endDate="ngModel" matInput [matDatepicker]="picker" (dateChange)="updateEndDate($event, i)" autocomplete="off" [value]="formattedDate(candidateForm.educationalInfoDto[i].endDate)" [max]="maxDate" required >
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker disabled="false"></mat-datepicker>
+            <mat-error *ngIf="endDate.invalid && endDate.errors?.['required']">End Date is Required</mat-error>
+            <mat-error *ngIf="isDateExceedMaxDate(candidateForm.educationalInfoDto[i].endDate)">Don't exceed today's date.</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngIf="i > 0">
+          <button mat-mini-fab color="warn" (click)="removeEducation(i)" style="margin: auto;">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <mat-action-row style="padding-right: 30px;">
+        <button mat-raised-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-raised-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>  
+      </mat-expansion-panel>
+
+      <mat-divider></mat-divider>
+
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 style="color: #797979; margin-bottom: 10px; font-weight: bold;">Skills</h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            Enter your skills
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <h3 class="heading">
+           Add Skills
+          <button mat-mini-fab color="primary" (click)="addskills()" style="align-self: flex-end; margin-right: 25px;">
+            <mat-icon>add</mat-icon>
+          </button>
+        </h3>
+        <mat-grid-list cols="6" rowHeight="100px" class="gridclass"
+          *ngFor="let skill of candidateForm.skillsDto; let i = index">
+        <mat-grid-tile>
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>Skill Name</mat-label>
+            <input [(ngModel)]="candidateForm.skillsDto[i].skillName" matInput type="text" name="skillName" #skillName="ngModel" required autocomplete="off" [pattern]="noWhitespacePattern" maxlength="25" />
+            <mat-error *ngIf="skillName.invalid && (skillName.dirty || skillName.touched) && skillName.errors?.['required']">
+              This field is required
+            </mat-error>
+            <mat-error *ngIf="skillName.invalid && skillName.errors?.['pattern']">
+              Don't start and end with whitespaces in Skill Name.
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="inputField" appearance="outline">
+            <mat-label>Proficiency</mat-label>
+            <mat-select [(ngModel)]="candidateForm.skillsDto[i].skillProficiencyId" id="proficiencyId" name="proficiencyId" #skillProficiencyId="ngModel" required autocomplete="off" >
+              <mat-option>Clear</mat-option>
+              <mat-option *ngFor="let proficiency of proficiencies" [value]="proficiency.id">
+                {{ proficiency.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="skillProficiencyId.invalid && (skillProficiencyId.dirty || skillProficiencyId.touched) && skillProficiencyId.errors?.['required']">Please select a Proficiency</mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="i > 0">
+          <button mat-mini-fab color="warn" (click)="removeSkill(i)" style="margin: auto;">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <mat-action-row style="padding-right: 30px;">
+        <button mat-raised-button color="warn" (click)="prevStep()">Previous</button>
+      </mat-action-row>  
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="cardAction">
+      <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
+      <button mat-raised-button type="reset" (click)="cancel()">Cancel</button>
+    </div>
+  <!-- </mat-card-content>
+  <mat-card-actions class="cardAction">
+    <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
+    <button mat-raised-button type="reset">Cancel</button>
+  </mat-card-actions>
+</mat-card> -->

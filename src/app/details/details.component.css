@@ -1,0 +1,71 @@
+.main-body{
+	padding-bottom: 40px;
+  margin: 0 auto;
+  width: 100%;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+/* @media only screen and (max-width: 600px){
+  .Table{
+    width: 100%
+    background-color: aqua;
+  }
+} */
+
+.tableHead{
+	display: flex;
+	gap: 2rem;
+	padding-top: 2rem;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	padding-bottom: 0px;
+  .add {
+    width: 1000px;
+    margin-top: 0.75%;
+  }
+  .clear {
+    width: 770px;
+    margin-top: 0.75%;
+  }
+}
+
+input:empty {
+  font-size: 0.9em;
+}
+
+select:empty {
+  font-size: 0.9em;
+} 
+
+table {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 10px;
+}
+
+mat-paginator {
+  position: relative;
+  bottom: 8px;
+  width: 100%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left; 
+}
+
+.heading{
+	color: #5c5c5c; 
+  margin-left: 12px;
+	margin-bottom: 10px; 
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}

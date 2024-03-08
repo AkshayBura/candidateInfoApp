@@ -1,0 +1,70 @@
+.form-container{
+	margin: 30px;
+	width: 80%;
+}
+
+.cardContent{
+	margin-top: 1.5rem;
+	padding: 10px;
+}
+
+.cardAction{
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 1.5rem;
+	padding: 25px;
+	padding-top: 15px;
+	button {
+		width: 150px;
+	}
+}
+
+.inputField{
+	width: 100%;
+	padding: 0.5rem 0.5rem;
+}
+
+.main-body{
+	padding-top: 20px;
+	padding: 2rem;
+	margin: 0 auto;
+	max-width: 100%;
+	mat-form-field {
+		width: 100%;
+	}
+}
+
+.main{
+	display: flex;
+	justify-content: center;
+}
+
+.gridclass{
+	padding: 2px;
+	padding-left: 5px;
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}
+
+mat-card{
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.heading{
+	color: #797979; 
+	margin-bottom: 10px; 
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}

@@ -1,0 +1,27 @@
+.content {
+  padding: 20px;
+}
+
+mat-sidenav {
+  margin-top: 64px;
+  position: fixed;
+  padding: 5px;
+  width: 200px;
+  background-color:aliceblue; 
+  color: #000000; 
+}
+
+mat-sidenav a:hover {
+	/* padding: 25px; */
+  background-color: #7CB9E8;
+	border-radius: 15px; 
+}
+
+mat-sidenav-container{
+	background-color:#E1EBEE;
+}
+
+mat-sidenav-content {
+  padding: 15px;
+  padding-top: 0px;
+}
