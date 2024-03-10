@@ -41,7 +41,8 @@ export class SignupComponent {
       this._userService.createUser(this.signUpModel).subscribe({
         next: (res: any) => {
           this._coreService.openSnackBar("User created Successfully", "Success");
-          alert(JSON.stringify(res));
+          // alert(JSON.stringify(res));
+          this._route.navigate(['/sigin'])
         },
         error: (err: any) => {
           this._coreService.openSnackBar(`${err.error}`, "Failed")
@@ -49,12 +50,12 @@ export class SignupComponent {
         }
       })
     } else {
-      alert(errorMess)
-      console.log(errorMess)
+      this._coreService.openSnackBar(`${errorMess}`, 'Failed')
+      console.error(errorMess)
     }
   }
 
   backtoLogin(){
-    this._route.navigate(['/detail'])
+    this._route.navigate(['/signin'])
   }
 }

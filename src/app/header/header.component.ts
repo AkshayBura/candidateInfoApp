@@ -24,7 +24,8 @@ export class HeaderComponent {
 
   signOut() {
     console.log('Sign out clicked');
-    // this._authService.logout()
-    // this.router.navigate(['/login']);
+    sessionStorage.removeItem('Authtoken')
+    sessionStorage.removeItem('LoginData')
+    this.router.navigate(['/signin']);
   }
 }

@@ -1,1 +1,49 @@
-<p>signin works!</p>
+<div class="main">
+  <div class="form-container">
+    <mat-card class="cardClass">
+      <mat-card-header>
+        <mat-card-title style="font-size: x-large; padding: 10px; padding-bottom: 25px;"><strong>SignIn</strong></mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="cardContent">
+
+        <mat-form-field class="inputField" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input [(ngModel)]="signInModel.userEmail" matInput type="email" name="email" #userEmail="ngModel" required autocomplete="off" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$" />
+          <mat-error
+            *ngIf="userEmail.invalid && (userEmail.dirty || userEmail.touched) && userEmail.errors?.['required']">
+            This field is required.
+          </mat-error>
+          <mat-error
+            *ngIf="userEmail.invalid && userEmail.errors?.['pattern']">
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="inputField" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input [(ngModel)]="signInModel.password" matInput type="password" name="password" #password="ngModel"
+            required autocomplete="off" pattern="" />
+          <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.['required']">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="password.invalid && password.errors?.['pattern']">
+            Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-card-actions class="cardAction">
+          <button mat-raised-button color="primary" (click)="login()">Login</button>
+          <button mat-raised-button color="secondary" (click)="register()">Register</button>
+        </mat-card-actions>
+
+        <!-- <a href="http://localhost:4200/signup"> Don't hanve Account? SignUp here... </a>
+        <div class="mat-typography">
+          <a href="/signup" target="_blank">
+            Don't have any Account, Create New Account
+          </a>
+        </div> -->
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

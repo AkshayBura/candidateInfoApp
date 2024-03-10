@@ -9,26 +9,30 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'candidateInfoApp';
-  // showHeader: boolean = true;
+  showHeader: boolean = true;
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   closeSidenav(): void {
-    this.sidenav.close();
+    if (this.sidenav) {
+      this.sidenav.close();
+    }
   }
 
   toggleSidenav(): void {
-    this.sidenav.toggle();
+    if (this.sidenav) {
+      this.sidenav.toggle();
+    }
   }
 
   constructor(private router: Router) {
     // Subscribe to route changes
-  //   this.router.events.subscribe((event) => {
-  //     if (event instanceof NavigationEnd) {
-  //       // Check if the current route is 'login' to hide the header
-  //       this.showHeader = !(event.url === '/login' || event.url === '/createAccount');
-  //       // this.showHeader = (event.url !== "/createAccount");
-  //     }
-  //   });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Check if the current route is 'login' to hide the header
+        this.showHeader = !(event.url === '/signup' || event.url === '/signin');
+        // this.showHeader = (event.url !== "/createAccount");
+      }
+    });
   }
 }

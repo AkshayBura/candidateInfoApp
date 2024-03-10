@@ -108,3 +108,8 @@ export interface SignUp{
   userEmail: string,
   password: string
 }
+
+export interface SignIn{
+  userEmail: string,
+  password: string
+}

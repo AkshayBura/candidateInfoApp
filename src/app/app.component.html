@@ -1,10 +1,10 @@
 <!-- <app-header *ngIf="showHeader" (toggleSidenav)="sidenav.toggle()"></app-header> -->
 <!-- <app-header (toggleSidenav)="sidenav.toggle()"></app-header> -->
-<app-header (toggleSidenav)="toggleSidenav()"></app-header>
+<app-header *ngIf="showHeader" (toggleSidenav)="toggleSidenav()"></app-header>
 <!-- <app-signup></app-signup> -->
 <mat-sidenav-container >
   <!-- <mat-sidenav #sidenav mode="side" *ngIf="showHeader"> -->
-  <mat-sidenav #sidenav mode="side" fixedInViewport="true">
+  <mat-sidenav #sidenav mode="side" *ngIf="showHeader" fixedInViewport="true">
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content (click)="closeSidenav()" style="margin-top: 60px;">
