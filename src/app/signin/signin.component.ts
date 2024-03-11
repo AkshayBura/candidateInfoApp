@@ -3,6 +3,7 @@ import { SignIn } from '../form.model';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
 import { CoreService } from '../core/core.service';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -11,7 +12,7 @@ import { CoreService } from '../core/core.service';
 })
 export class SigninComponent {
 
-  constructor( private route: Router, private _userService: UserService, private _coreService: CoreService ) {  }
+  constructor( private route: Router, private _userService: UserService, private _authService: AuthService, private _coreService: CoreService ) {  }
 
   signInModel: SignIn = {
     userEmail: '',
@@ -42,8 +43,8 @@ export class SigninComponent {
       this._userService.loginUser(this.signInModel).subscribe({
         next: (res: any) => {
           this._coreService.openSnackBar('LoggedIn Successfully', 'Success')
-          sessionStorage.setItem('LoginData', JSON.stringify(res));
-          sessionStorage.setItem('Authtoken', res.accessToken)
+          this._authService.saveLoginData(res)
+          this._authService.saveToken(res.accessToken)
           this.route.navigate(['/details'])
         },
         error: (err: any) => {

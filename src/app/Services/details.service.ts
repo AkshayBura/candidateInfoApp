@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AddCandidateInfoModel, GetPersonalInfoDto } from '../form.model';
+import { AuthService } from './auth.service';
+import { createHeaders } from '../../header-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +11,43 @@ import { AddCandidateInfoModel, GetPersonalInfoDto } from '../form.model';
 export class DetailsService {
 
   private apiUrl = 'http://localhost:5115/api/';
-  constructor(private _http: HttpClient) { }
+
+  constructor(private _http: HttpClient, private _authService: AuthService) { }
 
   getInfo(): Observable <any>{
-    return this._http.get(`${this.apiUrl}candidateinfo`)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.get(`${this.apiUrl}candidateinfo`, options)
   }
 
   getInfoById(id: string): Observable <any>{
-    return this._http.get(`${this.apiUrl}candidateinfo/${id}`)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.get(`${this.apiUrl}candidateinfo/${id}`, options)
   }
 
   getPersonalInfo(): Observable<any>{
-    return this._http.get(`${this.apiUrl}personalinfo`)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.get(`${this.apiUrl}personalinfo`, options)
   }
 
   deleteInfo(id: string, name: string): Observable<any>{
-    return this._http.delete(`${this.apiUrl}${name}/${id}`)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.delete(`${this.apiUrl}${name}/${id}`, options)
   }
 
   addInfo(info: AddCandidateInfoModel): Observable<any>{
-    return this._http.post(`${this.apiUrl}candidateinfo`, info)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.post(`${this.apiUrl}candidateinfo`, info, options)
   }
 
   updateInfo(id: string, info: AddCandidateInfoModel): Observable<any> {
-    return this._http.put(`${this.apiUrl}candidateInfo/${id}`, info)
+    const headers = createHeaders(this._authService);
+    const options = { headers: headers}
+    return this._http.put(`${this.apiUrl}candidateInfo/${id}`, info, options)
   }
 
 }

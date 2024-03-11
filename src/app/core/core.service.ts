@@ -18,9 +18,16 @@ export class CoreService {
   }
 
   openSnackBar(message: any, action: string = 'OK') {
+    let actionColor = {}
+    if (action === 'Success') {
+      actionColor = {color: 'green'};
+    }
+
     this._snackBar.open(message, action, {
       duration: 5000,
-      verticalPosition: 'top'
+      verticalPosition: 'top',
+      panelClass: ['custom-class'],
+      ...actionColor
     });
   }
 }

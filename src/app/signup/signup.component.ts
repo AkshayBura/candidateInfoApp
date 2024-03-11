@@ -42,7 +42,7 @@ export class SignupComponent {
         next: (res: any) => {
           this._coreService.openSnackBar("User created Successfully", "Success");
           // alert(JSON.stringify(res));
-          this._route.navigate(['/sigin'])
+          this._route.navigate(['/signin'])
         },
         error: (err: any) => {
           this._coreService.openSnackBar(`${err.error}`, "Failed")
